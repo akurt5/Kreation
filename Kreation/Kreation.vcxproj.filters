@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Source\CharisticHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Kreation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Object.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextureHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header\CharisticHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Object.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\TextureHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\3rd\SOIL.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{353df469-968d-4726-ad7e-748e172a1890}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{adc26c5b-c838-41e1-81db-e94eea6c462e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{ae098f57-b5ab-49f1-9f36-5d04e911fa5f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
