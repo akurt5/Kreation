@@ -1,6 +1,15 @@
+#include "Kreator.h"
+#include <cstdlib>//only for system("pause");
 
-int main(int argc, char* argv[])
+void main()
 {
-	return 0;
+	Kreator *Application = new Kreator();
+	//system("pause");
+	while(Application->WinCheckClose())//check close should be called in a window update after close flags / hints have been set. such hints should be set via key presses and such
+	{
+
+	}
+	Application->~Kreator();
+	return;
 }
 

@@ -1,10 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="Source\Kreation.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
     <ClCompile Include="Source\CharisticHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Kreation.cpp">
+    <ClCompile Include="Source\Kreator.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Object.cpp">
@@ -15,7 +18,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header\3rd\SOIL.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
     <ClInclude Include="Header\CharisticHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Kreator.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\Object.h">
@@ -23,9 +32,6 @@
     </ClInclude>
     <ClInclude Include="Header\TextureHandle.h">
       <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\3rd\SOIL.h">
-      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

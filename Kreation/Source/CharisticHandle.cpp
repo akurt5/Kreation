@@ -1,9 +1,7 @@
 #include "CharisticHandle.h"
-Charistic::Charistic(char *_Name)
+
+Charistic<class _Container>::Charistic(std::string *_Name, _Container *_DataType)
 {
 
 }
-Int_Charistic::Int_Charistic(int _Value, char *_Name)
-{
 
-}
