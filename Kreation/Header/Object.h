@@ -1,13 +1,12 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-//#include <vector>
 #include<string>
 #include <map>
 
 #include "CharisticHandle.h"
 
-class Object
+class Object : public Charistic<class _Container>
 //										Objects are everything. Just add more Characteristics
 {
 public:
@@ -22,9 +21,9 @@ public:
 	Object();
 	Object(Charistic<class _Container>, ...);//				va_args for Dynamics. #yeaboi!
 	~Object();
-	void PassOn( Passes _Method, Object *_Successor, ...);//		Pass on then ~Object()
+	bool PassOn( Passes _Method, Object *_Successor, ...);//		Pass on then ~Object()
 	
-	void AddCharistic(Charistic<class _Container>, ...);
+	bool AddCharistic(Charistic<class _Container>, ...);
 
 	std::map<std::string *, Charistic<class _Container>*> Charistics;//Taste hold love the Charistics..
 };

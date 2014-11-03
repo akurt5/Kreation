@@ -42,7 +42,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>./Header;./Resources/Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)Header;./Resources/Include;$(IncludePath)</IncludePath>
     <LibraryPath>./Resources/Libraries;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,16 +84,30 @@
   <ItemGroup>
     <ClInclude Include="Header\3rd\SOIL.h" />
     <ClInclude Include="Header\CharisticHandle.h" />
+    <ClInclude Include="Header\InputHandle.h" />
     <ClInclude Include="Header\Kreator.h" />
+    <ClInclude Include="Header\LogHandle.h" />
     <ClInclude Include="Header\Object.h" />
+    <ClInclude Include="Header\PolyData.h" />
+    <ClInclude Include="Header\PolygonHandle.h" />
+    <ClInclude Include="Header\ShaderHandle.h" />
+    <ClInclude Include="Header\Sprite.h" />
     <ClInclude Include="Header\TextureHandle.h" />
+    <ClInclude Include="Header\TimeHandle.h" />
+    <ClInclude Include="Header\WinHandle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\CharisticHandle.cpp" />
+    <ClCompile Include="Source\InputHandle.cpp" />
     <ClCompile Include="Source\Kreation.cpp" />
-    <ClCompile Include="Source\Kreator.cpp" />
+    <ClCompile Include="Source\LogHandle.cpp" />
     <ClCompile Include="Source\Object.cpp" />
+    <ClCompile Include="Source\PolygonHandle.cpp" />
+    <ClCompile Include="Source\ShaderHandle.cpp" />
+    <ClCompile Include="Source\SpriteHandle.cpp" />
     <ClCompile Include="Source\TextureHandle.cpp" />
+    <ClCompile Include="Source\TimeHandle.cpp" />
+    <ClCompile Include="Source\WinHandle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

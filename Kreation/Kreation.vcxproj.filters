@@ -7,13 +7,31 @@
     <ClCompile Include="Source\CharisticHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Kreator.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Object.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\TextureHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WinHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TimeHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PolygonHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ShaderHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpriteHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -31,6 +49,30 @@
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\TextureHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\InputHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\TimeHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\LogHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\WinHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\PolygonHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\ShaderHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Sprite.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\PolyData.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
