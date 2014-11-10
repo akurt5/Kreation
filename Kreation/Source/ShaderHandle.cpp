@@ -37,7 +37,7 @@ bool Shader::Load(int _Count, ...)
 		GShader = 0;
 		FShader = 0;
 
-	for(int i=0; i!=_Count; i++){
+	for(int i=0; i!=_Count; i++)
 		//for(bool i=true;i==true;i=false)
 		{
 		//a = NULL;
@@ -101,7 +101,7 @@ bool Shader::Load(int _Count, ...)
 	glDeleteShader( FShader );
 	return true;
 }
-bool SendAttribs(...)
+bool Shader::SendAttribs(...)
 {
 	return true;
 }

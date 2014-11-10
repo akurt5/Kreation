@@ -1,4 +1,5 @@
 #include "TextureHandle.h"
+//#include <Windows.h>
 
 
 bool Texture::Load(char *_Path, int _Width, int _Height)//add wrapping enum (clamp, border, mirror, tile) also add filtering enum (nearest, linear, mipmaps and shit)
