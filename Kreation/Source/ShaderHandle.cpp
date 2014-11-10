@@ -101,7 +101,11 @@ bool Shader::Load(int _Count, ...)
 	glDeleteShader( FShader );
 	return true;
 }
-bool Shader::SendAttribs(...)
+bool Shader::Update()
+{
+	SendAttribs()
+}
+bool Shader::SendAttribs()
 {
 	glBindAttribLocation(ShaderProgram, 0, "In_Colour");
 	return true;

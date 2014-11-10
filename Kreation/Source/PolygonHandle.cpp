@@ -10,8 +10,8 @@ bool Poly::Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Po
 	
 	VBO = 0;
 	glGenVertexArrays (1, &VBO);//gen the empty VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);//bind it to OpenGL
-	glBufferData(GL_ARRAY_BUFFER, _Size * sizeof (float), CalcPoints(_Size, _Position, _Radius), GL_STATIC_DRAW);// there is '_Size' number of floats and they are located at points.
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);//bind it to OpenGL //send to GPU
+	glBufferData(GL_ARRAY_BUFFER, _Size * sizeof (float), CalcPoints(_Size, _Position, _Radius), GL_STATIC_DRAW);// there is '_Size' number of floats and they are located at VertData.
 
 	VAO = 0;
 	glGenVertexArrays (1, &VAO);//gen empty VAO
@@ -20,25 +20,11 @@ bool Poly::Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Po
 	glBindBuffer (GL_ARRAY_BUFFER, VBO);// Bind more shit
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);//defines the layout of our first vertex buffer
 
-	/*const char* vertex_shader =
-	"#version 400\n"
-	"in vec3 vp;"
-	"void main () {"
-	"  gl_Position = vec4 (vp, 1.0);"
-	"}";
-
-	const char* fragment_shader =
-	"#version 400\n"
-	"out vec4 frag_colour;"
-	"void main () {"
-	"  frag_colour = vec4 (0.5, 0.0, 0.5, 1.0);"
-	"}";*/
-
 	//Do i load the shaders here or do i load them in the main?
 
 	//eg	LoadSprite(path, size, shaderpaths)
 	//or
-	//		LoadShaders(shaders)
+	//		LoadShaders(shaders)				//I like this more because it seems like you could have nice sections where different shaders are used
 	//		LoadSprite(path, size, shaders)
 	return true;
 }
@@ -55,15 +41,15 @@ float *Poly::CalcPoints(int _Size, glm::vec3 _Centre, float _Radius, float _Angl
 	int i;//iterator for upcoming while loop
 	if(_Size <= QUATTUOR)
 	{                        /*0,1,2,3,4,5,6,7,8,9*/
-		Points[(_Size * 10)];/*x,y,z,r,g,b,a,u,v,w*/
+		VertData[(_Size * 10)];/*x,y,z,r,g,b,a,u,v,w*/
 		i = 0;// if we are making a quad or tri then we need no center vert.
 	}
 	else
 	{
-		Points[(_Size +1)* 10];//extra set is for center vert.
-		Points[(_Size * 9)] = _Centre.x;//X value for center		// 3* 10 = 30 + 1,2 or 3 == >30. thats why we use 9 here.
-		Points[(_Size * 9)+1] = _Centre.y;//Y value for center
-		Points[(_Size * 9)+2] = _Centre.z;//Z center
+		VertData[(_Size +1)* 10];//extra set is for center vert.
+		VertData[(_Size * 9)] = _Centre.x;//X value for center		// 3* 10 = 30 + 1,2 or 3 == >30. thats why we use 9 here.
+		VertData[(_Size * 9)+1] = _Centre.y;//Y value for center
+		VertData[(_Size * 9)+2] = _Centre.z;//Z center
 		i = 9;//centre vert will be skipped in for loop now because it in not common between quad/tri and pent etc.
 	}
 	
@@ -73,13 +59,13 @@ float *Poly::CalcPoints(int _Size, glm::vec3 _Centre, float _Radius, float _Angl
 		{
 			glm::vec2 PointPos = Pythag(Angle, _Radius);//converts polar coords of point to cartesian.
 			Angle += DiffAngle;
-			Points[i++] = PointPos.x + _Centre.x;
-			Points[i++] = PointPos.y + _Centre.y;
-			Points[i++] = _Centre.z;
+			VertData[i++] = PointPos.x + _Centre.x;
+			VertData[i++] = PointPos.y + _Centre.y;
+			VertData[i++] = _Centre.z;
 			i+=8;//this will round up the iterator to assure we are only assigning to x,y,z each loop.
 		}//points should be generated in a clockwise fashion.
 
-	return Points;
+	return VertData;
 }
 glm::vec2 Poly::Pythag(float _Angle, float _Radius)
 {

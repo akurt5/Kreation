@@ -13,7 +13,7 @@ class Poly
 {
 public:
 
-	float *Points;
+	float *VertData;
 	template <typename Enum>
 	bool Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Position);
 	bool Update();
