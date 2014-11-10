@@ -13,7 +13,9 @@ public:
 	GLint CreateProgram(GLint _Vert, GLint _Cont, GLint _Eval, GLint _Geom, GLint _Frag);
 	//void Load(char *_ShaderPath, ...);
 	bool Load(int _Count, ...);
+	bool Update();
 	bool SendAttribs(...);//maybe just pass a Charistic. they have a name already
+	bool AddAttrib(...);
 
 	GLint VShader, CShader, EShader, GShader, FShader, ShaderProgram;
 

@@ -103,5 +103,6 @@ bool Shader::Load(int _Count, ...)
 }
 bool Shader::SendAttribs(...)
 {
+	glBindAttribLocation(ShaderProgram, 0, "In_Colour");
 	return true;
 }

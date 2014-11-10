@@ -14,7 +14,7 @@ bool Texture::Load(char *_Path, int _Width, int _Height)//add wrapping enum (cla
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _Width, _Height, 0, GL_RGBA, GL_FLOAT, Image);//give the image data to GL
 	/*_______________________________________________________^_BorderSize_______________*/
 
-	SOIL_free_image_data(Image);//frees up memory
+	SOIL_free_image_data(Image);//frees up memory occupied when loading texture.
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);// s,t&r coords are  x,y&z
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -24,8 +24,8 @@ bool Texture::Load(char *_Path, int _Width, int _Height)//add wrapping enum (cla
 	//glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, color);
 
 	//Set filter options
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//Minifying
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//Magnifying
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);//Minifying //Specifies which kind of interpolation to use when scaling.
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);//Magnifying // GL_LINEAR is the interpolation.
 	
 
 	//float pixels[] = {
