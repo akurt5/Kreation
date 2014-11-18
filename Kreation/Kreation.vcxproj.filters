@@ -34,6 +34,9 @@
     <ClCompile Include="Source\SpriteHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\VertexHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header\3rd\SOIL.h">
@@ -69,10 +72,16 @@
     <ClInclude Include="Header\ShaderHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Sprite.h">
+    <ClInclude Include="Header\PolyData.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\PolyData.h">
+    <ClInclude Include="Header\VertexHandle.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\SpriteHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>

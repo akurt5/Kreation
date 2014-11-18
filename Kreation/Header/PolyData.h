@@ -2,6 +2,7 @@
 
 namespace
 {
+	//typedef unsigned int Enum;// i want this to eplace the Enum templates above funtion calls
 	enum 
 	{
 		TRES		= 3,

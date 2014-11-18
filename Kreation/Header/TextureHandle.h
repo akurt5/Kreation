@@ -4,20 +4,19 @@
 #include "SOIL.h"
 #include "PolygonHandle.h"
 
-class Texture
+class Tex
 {
 public:
 
-	Poly Polygon;
 	GLuint Material;
-	unsigned char *Image;
+			//unsigned int Image;
 	float *Pixels;
-
-	bool Load(char *_Path, int _Width, int _Height);
-	bool Update(Shader _ShaderProgram);
-	bool Move(glm::vec3 _Pos);
-	bool Rotate(float _Angle);
-	bool Draw();
+	
+	bool Load(char *_Path, int _Width, int _Height);// need to work a function tht takes in "MipMap = false" and sets mipmapping to off. dynamic as, insead of FUNC(NULL, NULL, NULL, stuff, NULL);
+	bool Update();
+	//bool Move(glm::vec3 _Pos);
+	//bool Rotate(float _Angle);
+	//bool Draw();
 };
 
 #endif 
