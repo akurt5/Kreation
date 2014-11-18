@@ -22,6 +22,7 @@ public:
 private:
 	float *CalcPoints(int _Size, glm::vec3 _Centre, float _Radius, float _AngleOffset = 90.0f);
 	glm::vec2 Pythag(float _Angle, float _Radius);
+	
 };
 
 #endif
