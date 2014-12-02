@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "GL\glew.h"
-
 class Attrib
 {
 public:
@@ -35,7 +34,7 @@ public:
 	//Converts the loaded text file into a shader.
 	GLint CreateShader(const GLchar *const *_Path, GLenum _Type);
 	GLint CreateProgram(GLint _Vert, GLint _Cont, GLint _Eval, GLint _Geom, GLint _Frag);
-	
+
 	//Loads shader files of type:
 	//.vert
 	//.cont
@@ -62,6 +61,7 @@ public:
 
 	
 	std::vector <const GLchar *const*>PathList;
+
 	
 	std::vector <Attrib>AttList;
 	unsigned int Location;
@@ -69,6 +69,7 @@ public:
 	
 
 };
+
 
 #endif
 
