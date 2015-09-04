@@ -1,9 +1,10 @@
 #version 430
 
-uniform vec4 In_Colour; //the uniform keyword says the attrib is comming from the cpu and not the gpu like usual. this also makes it global
-out vec4 Out_Colour;
+uniform vec4 inputColour;
+out vec4 fragColour;
 
-void main() 
+void main()
 {
-	OUT_Colour = In_Colour;
+	//OutColour = vec4(0.0, 1.0, 0.0, 1.0);
+	fragColour = inputColour;
 }

@@ -1,19 +1,21 @@
+#ifndef POLYDATA_H
+#define POLYDATA_H
+
 #include "GL/glew.h"
 
 namespace
 {
-	//typedef unsigned int Enum;// i want this to eplace the Enum templates above funtion calls
-	enum 
+	enum Sides
 	{
-		TRES		= 3,
-		QUATTUOR	= 4,
-		QUINQUE		= 5,
-		SEX			= 6,
-		SEPTEM		= 7,
-		OCTO		= 8,
-		NOVEM		= 9,
-		DECEM		= 10
+		THREE		= 3,
+		FOUR		= 4,
+		FIVE		= 5,
+		SIX			= 6,
+		SEVEN		= 7,
+		EIGHT		= 8,
+		NINE		= 9,
+		TEN			= 10
 	}PolySize;
-
-	GLuint VBO, VAO, IBO;
 }
+
+#endif

@@ -1,19 +1,25 @@
 #include "PolygonHandle.h"
+#include "GL/glew.h"
+#include "MiscMath.h"
 #include "PolyData.h"
+
 #include <iostream>
 
-
-template <typename Enum>
-
-bool Poly::Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Position)
+bool Poly::InitialiseCharistics()//needs to be template func
 {
-	static_assert(std::is_enum<Enum>::value, "Only enums are allowed here");//pretty much throws an error if you break the rules. i think.
-	
+	//AddCharistic()
+	Charistics
+}
+bool Poly::Create(int _Sides, glm::vec2 _Dimensions, bool _CentreIsCentre, glm::vec3 _Position, float _AngleOffset)
+{
+	//VertData = new Vertex();
+	//Indices = new unsigned int();
+
 	VBO = 0;
 	glGenVertexArrays (1, &VBO);//gen the empty VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);//bind it to OpenGL //send to GPU
-	glBufferData(GL_ARRAY_BUFFER, _Size * sizeof (Vertex), CalcPoints(_Size, _Position, _Radius), GL_DYNAMIC_DRAW);// there is '_Size' number of floats and they are located at VertData.
-	//GL_STATIC_DRAW: The vertex data will be uploaded once and drawn many times (e.g. the world).
+	glBufferData(GL_ARRAY_BUFFER, /*(_Size * sizeof (Vertex))*/(_Sides * 3)*sizeof(float), CalcPoints(_Sides, _Dimensions, _Position, _AngleOffset), GL_DYNAMIC_DRAW);// there is '_Size' number of floats and they are located at VertData. _Size * sizeof (Vertex) = in bytes the size.
+	//GL_STATIC_DRAW: The vertex data will be uploaded once and drawn many times (e.g. the Environment).
 	//GL_DYNAMIC_DRAW: The vertex data will be changed from time to time, but drawn many times more than that.
 	//GL_STREAM_DRAW: The vertex data will change almost every time it's drawn (e.g. user interface).
 	VAO = 0;
@@ -23,23 +29,24 @@ bool Poly::Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Po
 	glBindBuffer (GL_ARRAY_BUFFER, VBO);// Bind more shit
 	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);//defines the layout of our first vertex buffer
 
-	IBO = 0;
+	/*IBO = 0;
 	glGenBuffers(1, &IBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _Size * sizeof (unsigned int), CalcIndices(_Size), GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _Sides * sizeof (unsigned int), CalcIndices(_Sides), GL_STATIC_DRAW);
 
 	//Set Up Vertex Arrays
 	glEnableVertexAttribArray(0);//Vertex position will be attrib 0
-	glVertexAttribLPointer(0, _Size, GL_FLOAT, sizeof(glm::vec3), (void*)0);
+	glVertexAttribLPointer(0, _Sides, GL_FLOAT, sizeof(glm::vec3), (void*)0);
 	glEnableVertexAttribArray(1);//Texture UV coords numbered 1
-	glVertexAttribLPointer(1, _Size, GL_FLOAT, sizeof(glm::vec3), (void*)16);//why is lukes (void*)16
+	glVertexAttribLPointer(1, _Sides, GL_FLOAT, sizeof(glm::vec3), (void*)16);//why is lukes (void*)16
 
 	glBindVertexArray(0);	//VAO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);	//IBO
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);*/
 
-	delete[] Indices;
-	delete[] VertData;
+	//delete[] Indices;
+	//for each ( Vertex i in VertData[] )
+//		delete[] VertData;
 
 	//Do i load the shaders here or do i load them in the main?
 
@@ -49,272 +56,230 @@ bool Poly::Create(Enum _Size, float _Radius, bool _CentreIsCentre, glm::vec3 _Po
 	//		LoadSprite(path, size, shaders)
 	return true;
 }
+bool Poly::Create(int _Sides, float _Radius, bool _CentreIsCentre, glm::vec3 _Position, float _AngleOffset)
+{
+	float Diameter = _Radius * 2;
+	return Create(_Sides, glm::vec2(Diameter, Diameter), _CentreIsCentre, _Position, _AngleOffset);//CentreIsCentre don't work!
+}
+bool Poly::Create(int _Sides, float *_Verts, bool _CentreIsCentre, glm::vec3 _Position, float _AngleOffset)
+{
+	VBO = 0;
+	glGenVertexArrays (1, &VBO);//gen the empty VBO
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);//bind it to OpenGL //send to GPU
+	glBufferData(GL_ARRAY_BUFFER, /*(_Size * sizeof (Vertex))*/(_Sides * 3) * sizeof(float), _Verts, GL_DYNAMIC_DRAW);// there is '_Size' number of floats and they are located at VertData. _Size * sizeof (Vertex) = in bytes the size.
+	//GL_STATIC_DRAW: The vertex data will be uploaded once and drawn many times (e.g. the Environment).
+	//GL_DYNAMIC_DRAW: The vertex data will be changed from time to time, but drawn many times more than that.
+	//GL_STREAM_DRAW: The vertex data will change almost every time it's drawn (e.g. user interface).
+	VAO = 0;
+	glGenVertexArrays (1, &VAO);//gen empty VAO
+	glBindVertexArray (VAO);// Bind to OGL
+	glEnableVertexAttribArray (0);//info is at VBO location 0
+	glBindBuffer (GL_ARRAY_BUFFER, VBO);// Bind more shit
+	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);//defines the layout of our first vertex buffer
+	return true;
+}
+bool Poly::Create(int _Sides, glm::vec3 *_Verts, bool _CentreIsCentre, glm::vec3 _Position, float _AngleOffset)
+{
+	VBO = 0;
+	glGenVertexArrays (1, &VBO);//gen the empty VBO
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);//bind it to OpenGL //send to GPU
+	glBufferData(GL_ARRAY_BUFFER, /*(_Size * sizeof (Vertex))*/(_Sides * 3) * sizeof(glm::vec3), _Verts, GL_DYNAMIC_DRAW);// there is '_Size' number of floats and they are located at VertData. _Size * sizeof (Vertex) = in bytes the size.
+	//GL_STATIC_DRAW: The vertex data will be uploaded once and drawn many times (e.g. the Environment).
+	//GL_DYNAMIC_DRAW: The vertex data will be changed from time to time, but drawn many times more than that.
+	//GL_STREAM_DRAW: The vertex data will change almost every time it's drawn (e.g. user interface).
+	VAO = 0;
+	glGenVertexArrays (1, &VAO);//gen empty VAO
+	glBindVertexArray (VAO);// Bind to OGL
+	glEnableVertexAttribArray (0);//info is at VBO location 0
+	glBindBuffer (GL_ARRAY_BUFFER, VBO);// Bind more shit
+	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);//defines the layout of our first vertex buffer
+	return true;
+}
 bool Poly::Update()
 {
 	return true;
 }
-unsigned int *Poly::CalcIndices(int _Size)//Make a function for this
+bool Poly::Draw(Shader _Shader)
 {
-	/*if(_Size > QUATTUOR)
-	{
+		glUseProgram (_Shader.ShaderProgram);
+		glBindVertexArray (VAO);
+		glDrawArrays (GL_TRIANGLES, 0, 3);
 
+	return true;
+}
+bool Poly::Move(glm::vec3 _Position)
+{
+	return true;
+}
+bool Poly::Rotate(float _Degrees)
+{
+	return true;
+}
+unsigned int Poly::CalcIndices(int _Sides)
+{
+	//unsigned int TempIndices[6];// If tri or quad: size = poly count * 3. If  larger size = vert count * 3
+	/*if(_Sides < FIVE)
+	{
+		//This TRI will use one poly.
+		TempIndices[0] = (unsigned int)0;
+		TempIndices[1] = (unsigned int)1;
+
+		if(_Sides == FOUR)//if it's not a tri we want to change the last indice
+		{
+			TempIndices[2] = (unsigned int)3;//			If QUAD: we want this indice
+
+		//Quads are made up of 2 TRIs
+		
+			TempIndices[3] = (unsigned int)0;
+			TempIndices[4] = (unsigned int)2;
+			TempIndices[5] = (unsigned int)3;
+
+		}
+		else
+		{
+			TempIndices[2] = (unsigned int)2;//			Else TRI: as you were 
+		}
 	}
 	else
-	{
+	{*/
 		int Iterator = 0;
 		do{
 
-		} while (Iterator);
-	}*/
+			/*TempIndices[Iterator] = (unsigned int)Iterator;
+			Iterator ++;//0, 3, 6, 9, 12, 15, 18, 21.
+			TempIndices[Iterator] = (unsigned int)Iterator;
+			Iterator ++;//1, 4, 7, 10, 13, 16, 19, 22.
+			TempIndices[Iterator] = (unsigned int)_Sides;
+			Iterator ++;//2, 5, 8, 11, 14, 17, 20, 23.*/
 
-	switch(_Size)
-	{
-	case TRES:
-		//This TRI will use one poly.
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 2;
-			break;
-	case QUATTUOR:
-		//Quads are made up of 2 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 2;
-		//Here is the second
-		Indices[3] = 0;
-		Indices[4] = 2;
-		Indices[5] = 3;
-			break;
-	case QUINQUE:
-		//five sided Poly. 6 verts. 5 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 5;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 5;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 5;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 5;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 0;
-		Indices[14] = 5;
-			break;
-	case SEX:
-		//Six sided Poly. 7 verts. 6 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 6;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 6;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 6;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 6;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 5;
-		Indices[14] = 6;
-		//Sixth
-		Indices[15] = 5;
-		Indices[16] = 0;
-		Indices[17] = 6;
-			break;
-	case SEPTEM:
-		//Seven sided Poly. 8 verts. 7 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 7;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 7;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 7;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 7;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 5;
-		Indices[14] = 7;
-		//Sixth
-		Indices[15] = 5;
-		Indices[16] = 6;
-		Indices[17] = 7;
-		//Seventh
-		Indices[18] = 6;
-		Indices[19] = 0;
-		Indices[20] = 7;
-			break;
-	case OCTO:
-		//Eight sided Poly. 9 verts. 8 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 8;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 8;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 8;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 8;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 5;
-		Indices[14] = 8;
-		//Sixth
-		Indices[15] = 5;
-		Indices[16] = 6;
-		Indices[17] = 8;
-		//Seventh
-		Indices[18] = 6;
-		Indices[19] = 7;
-		Indices[20] = 8;
-		//Eighth
-		Indices[21] = 7;
-		Indices[22] = 0;
-		Indices[23] = 8;
-			break;
-	case NOVEM:
-		//Nine sided Poly. 10 verts. 9 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 9;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 9;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 9;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 9;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 5;
-		Indices[14] = 9;
-		//Sixth
-		Indices[15] = 5;
-		Indices[16] = 6;
-		Indices[17] = 9;
-		//Seventh
-		Indices[18] = 6;
-		Indices[19] = 7;
-		Indices[20] = 9;
-		//Eighth
-		Indices[21] = 7;
-		Indices[22] = 8;
-		Indices[23] = 9;
-		//Ninth
-		Indices[21] = 8;
-		Indices[22] = 0;
-		Indices[23] = 9;
-			break;
-	case DECEM:
-		//Ten sided Poly. 11 verts. 10 TRIs
-		Indices[0] = 0;
-		Indices[1] = 1;
-		Indices[2] = 10;
-		//Second Poly
-		Indices[3] = 1;
-		Indices[4] = 2;
-		Indices[5] = 10;
-		//Third
-		Indices[6] = 2;
-		Indices[7] = 3;
-		Indices[8] = 10;
-		//Fourth
-		Indices[9] = 3;
-		Indices[10] = 4;
-		Indices[11] = 10;
-		//Fifth
-		Indices[12] = 4;
-		Indices[13] = 5;
-		Indices[14] = 10;
-		//Sixth
-		Indices[15] = 5;
-		Indices[16] = 6;
-		Indices[17] = 10;
-		//Seventh
-		Indices[18] = 6;
-		Indices[19] = 7;
-		Indices[20] = 10;
-		//Eighth
-		Indices[21] = 7;
-		Indices[22] = 8;
-		Indices[23] = 10;
-		//Ninth
-		Indices[21] = 8;
-		Indices[22] = 9;
-		Indices[23] = 10;
-		//Tenth
-		Indices[21] = 9;
-		Indices[22] = 0;
-		Indices[23] = 10;
-			break;
-	};
-	return Indices;
+			Indices.emplace_back(0);
+			Indices.emplace_back(Iterator += 1);
+			Indices.emplace_back(Iterator += 1);	
+
+		//} while ( Iterator != (_Sides * 3));
+		}while(Iterator != (_Sides - 2));
+	//}
+
+	//Indices = &TempIndices[0];
+
+	return Indices[0];
 }
-Vertex *Poly::CalcPoints(int _Size, glm::vec3 _Centre, float _Radius, float _AngleOffset)
+Vertex *Poly::CalcPoints(int _Sides, glm::vec3 _Centre, float _Radius, float _AngleOffset)
 {
-	int i;//iterator for upcoming while loop
-	if(_Size <= QUATTUOR)
-	{                        /*0,1,2,3,4,5,6,7,8*/
-		//VertData[(_Size * 9)];/*x,y,z,r,g,b,a,u,v*/
-		VertData[_Size];
+	float Diameter = _Radius * 2;
+	return CalcPoints(_Sides, glm::vec2 (Diameter, Diameter), _Centre, _AngleOffset);
+}
+Vertex *Poly::CalcPoints(int _Sides, glm::vec2 _Dimensions, glm::vec3 _Centre, float _AngleOffset)
+	//draw an elipse you fucking badger, you're already using a circle above. its the first thing you shouldve thought about.
+	//i respect that you never thought of it as a cirlce as much as i loathe it though. get shit together.
+{
+	Vertex TempVert;
+	glm::vec2 HalfDimensions = glm::vec2 (_Dimensions.x * 0.5, _Dimensions.y * 0.5);
+	int i = 0;//iterator for upcoming while loop
+	/*if(_Sides <= FOUR)
+	{
 		i = 0;// if we are making a quad or tri then we need no center vert.
 	}
 	else
 	{
-		i = 9;//centre vert will be skipped in for loop now because it in not common between quad/tri and pent etc.
-		VertData[_Size +1];
-		VertData[0] = _Centre;
-		i=1;
-	}
+		TempVert.XYZequals(_Centre);//otherwise the centre goes here
+		VecVertData.emplace_back(TempVert);
+		i = 1;
+	}*/
 	
 	float Angle = _AngleOffset;//while this is zero there will always be a vertex pointing straight up. !!even for quads.!! 
-	float DiffAngle = 360 / _Size;
-	while (i<_Size)//WOW!, while loop. We're in trouble.
+	float DiffAngle = 360.0f / _Sides, DimensionDiff = 0;
+	glm::vec2 PointPos;
+	while (i<_Sides)//WOW!, while loop. We're in trouble.(Round-a-bout music - cameveryday)
 		{
-			glm::vec2 PointPos = Pythag(Angle, _Radius);//converts polar coords of point to cartesian.
-			Angle += DiffAngle;
-			VertData[i].X = PointPos.x + _Centre.x;
-			VertData[i].Y = PointPos.y + _Centre.y;
-			VertData[i].Z = _Centre.z;
+			/*if((int)Angle % 90 == 0)  
+			{
+				if((int)Angle % 180 == 0)
+			}*/
+			if(HalfDimensions.y != HalfDimensions.x) // get the difference between the width and height. if there is one.
+			{
+				if(HalfDimensions.y > HalfDimensions.x)
+				{
+					DimensionDiff = HalfDimensions.y - HalfDimensions.x;
+				}
+				else
+				{
+					DimensionDiff = HalfDimensions.x - HalfDimensions.y;
+				}
+				DimensionDiff /= 90;// 90 is becasue we are calculating everything in a single quadrant. Dimension * diff gives the right length to have properly stretched shapes.
+			}
+
+			if((Angle == 0) || (Angle == 180) || (Angle == 360))//If the triangle is so thin its actually a line this won't work.
+			{
+				if(Angle == 180)
+				{
+					PointPos = glm::vec2(0, -HalfDimensions.y);
+				}
+				PointPos = glm::vec2(0, HalfDimensions.y);
+
+			}
+	   else if((Angle == 90) || (Angle == 270))//Same goes here
+			{
+				if(Angle == 270)
+				{
+					PointPos = glm::vec2(-HalfDimensions.x, 0);
+				}
+				PointPos = glm::vec2(HalfDimensions.x, 0);
+			}
+	   else
+			{
+				//if(PointPos == glm::vec2(0,0))//If its the first vertex
+				//{
+				//	PointPos = glm::vec2(HalfWidth * cos(MiscMath::DegToRad(Angle)), HalfHeight * sin(MiscMath::DegToRad(Angle)));//converts polar coords of point to cartesian.
+				//}
+				//else
+				{
+					float PracticeAngle = Angle, LengthAddition = DimensionDiff * PracticeAngle;
+					int Quadrant = 0;
+					while(PracticeAngle > 90)
+					{
+						PracticeAngle -= 90;
+						Quadrant ++;
+					}
+					float PX = HalfDimensions.x + LengthAddition, PY = HalfDimensions.y + LengthAddition, PA = MiscMath::DegToRad(PracticeAngle);
+					PointPos = glm::vec2(PX * sin(PA), PY * cos(PA));
+					glm::vec2 TempPointPos = PointPos;
+					switch (Quadrant)//inverse and switch the coordinates so that it rotates the point 90 degrees (to the next quadrant.
+					{
+					case 0:
+						//If it's in the first quadrand than all is well
+						break;
+					case 1:
+
+						
+						PointPos.x = -TempPointPos.y;
+						PointPos.y = TempPointPos.x;
+
+						break;
+					case 2:
+
+						PointPos.x = -TempPointPos.y;
+						PointPos.y = -TempPointPos.x;
+
+						break;
+					case 3:
+
+						PointPos.x = TempPointPos.y;
+						PointPos.y = -TempPointPos.x;
+
+						break;
+					};
+				}
+			}
+	   TempVert.XYZequals(glm::vec3(_Centre.x + PointPos.x, _Centre.y + PointPos.y, _Centre.z));
+	   VecVertData.emplace_back(TempVert);
+	   Angle += DiffAngle;
+
 			i++;//this will round up the iterator to assure we are only assigning to x,y,z each loop.
 		}//points should be generated in a clockwise fashion.
+	Position = _Centre;
+	//Vertex *VertData = &VecVertData[0];
+	//return VertData;
+	return &VecVertData[0];
+}
 
-	return VertData;
-}
-glm::vec2 Poly::Pythag(float _Angle, float _Radius)
-{
-	glm::vec2 Pos;
-	Pos.x = _Radius * cos(_Angle);
-	Pos.y = _Radius * sin(_Angle);
-	return Pos;
-}

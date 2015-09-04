@@ -13,18 +13,6 @@
     <ClCompile Include="Source\TextureHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\InputHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\WinHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\TimeHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\LogHandle.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PolygonHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -35,6 +23,12 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\VertexHandle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MiscMath.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\WindowHandle.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -57,13 +51,7 @@
     <ClInclude Include="Header\InputHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\TimeHandle.h">
-      <Filter>Header</Filter>
-    </ClInclude>
     <ClInclude Include="Header\LogHandle.h">
-      <Filter>Header</Filter>
-    </ClInclude>
-    <ClInclude Include="Header\WinHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="Header\PolygonHandle.h">
@@ -78,10 +66,13 @@
     <ClInclude Include="Header\VertexHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Header\SpriteHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="Header\SpriteHandle.h">
+    <ClInclude Include="Header\MiscMath.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\WindowHandle.h">
       <Filter>Header</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,5 +86,16 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{ae098f57-b5ab-49f1-9f36-5d04e911fa5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{4afc64a3-727f-42da-9dcf-99a59650f89a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\Basic.frag">
+      <Filter>Resources\Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\Basic.vert">
+      <Filter>Resources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

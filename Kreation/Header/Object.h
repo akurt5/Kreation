@@ -10,7 +10,8 @@ class Object : public Charistic<class _Container>
 //										Objects are everything. Just add more Characteristics
 {
 public:
-	enum Passes
+
+	enum Passes//gaaaaaaaaaaaaaaaaaaaaaaaaaaaaay, wot faggit thort thiz waz goodz ideer? faggit bitch. gay homo.
 	{
 		EXPIRE, //Destroy current and give all Charistics
 		MENTOR, //Give Charistics and values
@@ -23,8 +24,14 @@ public:
 	~Object();
 	bool PassOn( Passes _Method, Object *_Successor, ...);//		Pass on then ~Object()
 	
-	bool AddCharistic(Charistic<class _Container>, ...);
+	//bool AddCharistic(Charistic<class _Container>, ...);
+	bool AddCharistic(const char * _Name, Charistic<class _Container> _Charistic);
 
-	std::map<std::string *, Charistic<class _Container>*> Charistics;//Taste hold love the Charistics..
+	//std::map<std::string *, Charistic<class _Container>*> Charistics;//Taste hold love the Charistics..
+	template<typename DataType>
+	std::map<std::string *, DataType>> Charistics;//Taste hold love the Charistics..
+	template<typename DataType>
+	bool AddCharistic(const char * _Name, DataType);
+
 };
 #endif

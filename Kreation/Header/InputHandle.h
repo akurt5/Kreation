@@ -1,21 +1,55 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-#include "WinHandle.h"
+#include "GLFW\glfw3.h"
 
-class Input
+#include "WindowHandle.h"
+
+namespace
 {
 
 	//Returns true while key is down.
-	bool KeyDown(GLFWwindow *_Window, int _Key);
+	int KeyStatus(GLFWwindow *_Window, int _Key)
+	{
+		return glfwGetKey(_Window, _Key);
+	}
 	//Returns true on key release.
-	bool KeyOnRelease(GLFWwindow *_Window, int _Key);
+	bool KeyOnRelease(GLFWwindow *_Window, int _Key)
+	{
+		static int Prev;
+		int Curr = false;
+		Curr = KeyStatus(_Window, _Key);
+		if ((Prev) && (!Curr))
+		{
+			Prev = Curr;
+			return true;
+		}
+		Prev = Curr;
+		return false;
+	}
 	//Retuns true on key press. 
-	bool KeyOnPress(GLFWwindow *_Window, int _Key);
+	bool KeyOnPress(GLFWwindow *_Window, int _Key)
+	{
+		static int Prev;
+		int Curr = false;
+		Curr = KeyStatus(_Window, _Key);
+		if ((!Prev) && (Curr))
+		{
+			Prev = Curr;
+			return true;
+		}
+		Prev = Curr;
+		return false;
+	}
 
-};
+
 
 //Key List ripped from GLFW3.h
+
+#define KEY_RELEASE				0
+#define KEY_PRESS				1
+#define KEY_REPEAT				2
+
 /* The unknown key */
 #define KEY_UNKNOWN            -1
 
@@ -188,5 +222,7 @@ class Input
 #define JOYSTICK_15            14
 #define JOYSTICK_16            15
 #define JOYSTICK_LAST          JOYSTICK_16
+
+}
 
 #endif
